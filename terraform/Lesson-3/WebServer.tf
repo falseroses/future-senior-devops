@@ -5,7 +5,6 @@
 #
 # Made by Oleksandr Dumynskyi
 
-
 provider "aws" {}
 
 resource "aws_instance" "my_webserver" {
