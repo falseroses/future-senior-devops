@@ -31,4 +31,5 @@ override.tf.json
 # Ignore IDE config files
 .idea/
 
+# Terraform credentials
 **/terraform/terraform-credentials
