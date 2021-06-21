@@ -6,12 +6,6 @@
 # Made by Oleksandr Dumynskyi
 
 
-provider "aws" {
-  region                  = "eu-central-1"
-  shared_credentials_file = "/home/alex/future-senior-devops/terraform/terraform-credentials"
-}
-
-
 resource "aws_vpc" "my_vpc" {
   cidr_block = "172.16.0.0/16"
 
