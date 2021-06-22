@@ -1,11 +1,3 @@
-# -----------------------------------------------------------
-# My Terraform
-#
-# Build WebServer during bootstrap
-#
-# Made by Oleksandr Dumynskyi
-
-
 resource "aws_vpc" "my_vpc" {
   cidr_block = "172.16.0.0/16"
 
@@ -14,62 +6,76 @@ resource "aws_vpc" "my_vpc" {
   }
 }
 
-resource "aws_subnet" "my_subnet1" {
+resource "aws_subnet" "my_subnet" {
   vpc_id            = aws_vpc.my_vpc.id
   cidr_block        = "172.16.10.0/24"
   availability_zone = "eu-central-1a"
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "my_subnet1"
+    Name = "my_subnet"
   }
 }
 
-resource "aws_subnet" "my_subnet2" {
-  vpc_id            = aws_vpc.my_vpc.id
-  cidr_block        = "172.16.16.0/24"
-  availability_zone = "eu-central-1a"
-  map_public_ip_on_launch = true
+resource "aws_security_group" "my_security_group" {
+  name        = "WebServer and Redis Security Group"
+  description = "WebServer and Redis Security Group"
+  vpc_id      = aws_vpc.my_vpc.id
 
-  tags = {
-    Name = "my_subnet2"
+  ingress {
+    from_port        = 6379
+    to_port          = 6379
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port        = 80
+    to_port          = 80
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port        = 443
+    to_port          = 443
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
   }
 }
 
-resource "aws_network_interface" "number1" {
-  subnet_id   = aws_subnet.my_subnet1.id
-  private_ips = ["172.16.10.100"]
-
-  tags = {
-    Name = "network_interface_1"
-  }
-}
-
-resource "aws_network_interface" "number2" {
-  subnet_id   = aws_subnet.my_subnet2.id
-  private_ips = ["172.16.16.100"]
-
-  tags = {
-    Name = "network_interface_2"
-  }
-}
-
-resource "aws_instance" "my_ami_1" {
+resource "aws_instance" "my_webserv" {
+  count = 2
   ami           = "ami-0bad4a5e987bdebde"
   instance_type = "t2.micro"
+  user_data = file("install-nginx.sh")
+  subnet_id = aws_subnet.my_subnet.id
+  vpc_security_group_ids = [
+    aws_security_group.my_security_group.id,
+  ]
 
-  network_interface {
-    network_interface_id = aws_network_interface.number1.id
-    device_index         = 0
+  tags = {
+    Name = "my_webserv"
   }
 }
 
-resource "aws_instance" "my_ami_2" {
+resource "aws_instance" "my_redis_serv" {
   ami           = "ami-0bad4a5e987bdebde"
   instance_type = "t2.micro"
+  user_data = file("install-redis.sh")
+  subnet_id = aws_subnet.my_subnet.id
+  vpc_security_group_ids = [
+    aws_security_group.my_security_group.id,
+  ]
 
-  network_interface {
-    network_interface_id = aws_network_interface.number2.id
-    device_index         = 0
+  tags = {
+    Name = "my_redis_serv"
   }
 }
