@@ -5,5 +5,5 @@ variable "aws_region" {
 
 variable "aws_credentials" {
   description = "The AWS credentials."
-  default = "terraform-credentials"
+  default = "../../terraform-credentials"
 }
