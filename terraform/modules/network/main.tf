@@ -31,6 +31,23 @@ resource "aws_subnet" "my_subnet" {
   }
 }
 
+resource "aws_route_table" "my_route_table" {
+  vpc_id = aws_vpc.my_vpc.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.my_internet_gateway.id
+  }
+
+  tags = {
+    Name = "my_route_table"
+  }
+}
+
+resource "aws_route_table_association" "my_route_table_association" {
+  route_table_id = aws_route_table.my_route_table.id
+  subnet_id = aws_subnet.my_subnet.id
+}
+
 resource "aws_security_group" "my_security_group" {
   name        = "WebServer and Redis Security Group"
   description = "WebServer and Redis Security Group"
