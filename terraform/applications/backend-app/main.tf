@@ -17,6 +17,9 @@ resource "aws_instance" "my_backend_webserv" {
       "sudo amazon-linux-extras install -y nginx1",
       "sudo systemctl start nginx.service",
       "sudo systemctl enable nginx.service",
+      "sudo yum install -y gcc-c++ make",
+      "curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash -",
+      "sudo yum install -y nodejs",
     ]
   }
 
