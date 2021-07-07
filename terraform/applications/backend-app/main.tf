@@ -30,7 +30,7 @@ resource "aws_instance" "my_backend_webserv" {
   }
 
   tags = {
-    Name = "my_backend_webserv"
+    Name = "my_backend_webserv_${var.aws_env_tag}"
   }
 }
 
