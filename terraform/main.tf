@@ -6,7 +6,7 @@ provider "aws" {
 resource "aws_instance" "my_backend_webserv" {
   ami           = "ami-0bad4a5e987bdebde"
   instance_type = "t2.micro"
-  key_name      = "falseroses-key-Frankfurt"
+  key_name      = aws_key_pair.deployer.key_name
   subnet_id = data.aws_subnet.my_subnet.id
   vpc_security_group_ids = [data.aws_security_group.my_security_group.id]
 
