@@ -2,13 +2,13 @@ provider "aws" {
   region                  = var.aws_region
 }
 
-
 resource "aws_instance" "my_backend_webserv" {
-  ami           = "ami-0bad4a5e987bdebde"
+  ami = "ami-0bad4a5e987bdebde"
   instance_type = "t2.micro"
-  key_name      = "falseroses-key-Frankfurt"
+  key_name = "falseroses-key-Frankfurt"
   subnet_id = data.aws_subnet.my_subnet.id
-  vpc_security_group_ids = [data.aws_security_group.my_security_group.id]
+  vpc_security_group_ids = [
+    data.aws_security_group.my_security_group.id]
 
   provisioner "remote-exec" {
     inline = [
@@ -23,24 +23,15 @@ resource "aws_instance" "my_backend_webserv" {
   }
 
   connection {
-    type        = "ssh"
-    host        = self.public_ip
-    user        = "ec2-user"
-    private_key = var.credentials
+    type = "ssh"
+    host = self.public_ip
+    user = "ec2-user"
+    private_key = var.aws_private_key
   }
 
   tags = {
     Name = "my_backend_webserv"
   }
-}
-
-resource "tls_private_key" "deployer" {
-  algorithm = "RSA"
-}
-
-resource "aws_key_pair" "deployer" {
-  key_name   = "deployer-key"
-  public_key = tls_private_key.deployer.public_key_openssh
 }
 
 data "aws_subnet" "my_subnet" {

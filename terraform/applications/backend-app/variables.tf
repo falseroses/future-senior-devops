@@ -3,7 +3,7 @@ variable "aws_region" {
   type        = string
 }
 
-variable "credentials" {
-  description = "The AWS region to create things in."
+variable "aws_private_key" {
+  description = "The AWS SSH key pair in PEM format."
   type        = string
 }
