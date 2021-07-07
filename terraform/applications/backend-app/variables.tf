@@ -7,3 +7,8 @@ variable "aws_private_key" {
   description = "The AWS SSH key pair in PEM format."
   type        = string
 }
+
+variable "aws_env_tag" {
+  description = "The AWS environment tag: dev or prd"
+  type        = string
+}

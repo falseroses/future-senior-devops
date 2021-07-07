@@ -26,7 +26,7 @@ resource "aws_instance" "my_frontend_webserv" {
   }
 
   tags = {
-    Name = "my_frontend_webserv"
+    Name = "my_frontend_webserv_${var.aws_env_tag}"
   }
 }
 
