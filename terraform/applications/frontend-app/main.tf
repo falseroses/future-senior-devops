@@ -2,7 +2,6 @@ provider "aws" {
   region                  = var.aws_region
 }
 
-
 resource "aws_instance" "my_frontend_webserv" {
   ami           = "ami-0bad4a5e987bdebde"
   instance_type = "t2.micro"
@@ -23,7 +22,7 @@ resource "aws_instance" "my_frontend_webserv" {
     type        = "ssh"
     host        = self.public_ip
     user        = "ec2-user"
-    private_key = file("~/falseroses-key-Frankfurt.pem")
+    private_key = var.aws_private_key
   }
 
   tags = {

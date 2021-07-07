@@ -3,3 +3,8 @@ variable "aws_region" {
   type = string
   default = "eu-central-1"
 }
+
+variable "aws_private_key" {
+  description = "The AWS SSH key pair in PEM format."
+  type        = string
+}
