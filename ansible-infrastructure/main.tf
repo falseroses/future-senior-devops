@@ -11,7 +11,7 @@ resource "aws_instance" "Ansible-Master" {
   provisioner "remote-exec" {
     inline = [
       "sudo yum -y update",
-      "python -m pip install --user ansible",
+      "python3 -m pip install --user ansible",
       "mkdir /home/ec2-user/ansible",
       "mkdir /home/ec2-user/ansible/group_vars",
       "cat <<EOF > /home/ec2-user/ansible/hosts.txt",
@@ -31,6 +31,7 @@ resource "aws_instance" "Ansible-Master" {
       "deprecation_warnings = false",
       "EOF",
       "echo '${var.aws_private_key}' > /home/ec2-user/.ssh/falseroses-key-Frankfurt.pem",
+      "chmod 400 /home/ec2-user/.ssh/falseroses-key-Frankfurt.pem",
     ]
   }
 
