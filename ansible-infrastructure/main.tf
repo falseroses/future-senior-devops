@@ -30,7 +30,7 @@ resource "aws_instance" "Ansible-Master" {
       "interpreter_python = /usr/bin/python3",
       "deprecation_warnings = false",
       "EOF",
-      "echo ${var.aws_private_key} > /home/ec2-user/.ssh/falseroses-key.Frankfurt.pem",
+      "echo "${var.aws_private_key}" > /home/ec2-user/.ssh/falseroses-key-Frankfurt.pem",
     ]
   }
 
