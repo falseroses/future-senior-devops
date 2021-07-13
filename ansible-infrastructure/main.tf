@@ -68,8 +68,8 @@ resource "aws_instance" "Ansible-Client-2" {
 }
 
 resource "aws_security_group" "my_security_group" {
-  name        = "WebServer and Redis Security Group"
-  description = "WebServer and Redis Security Group"
+  name        = "Ansible-Infrastructure Security Group"
+  description = "Ansible-Infrastructure Security Group"
 
   ingress {
     from_port        = 80
