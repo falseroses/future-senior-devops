@@ -1,6 +1,5 @@
 provider "aws" {
   region                  = "eu-central-1"
-  shared_credentials_file = "/home/alex/future-senior-devops/terraform/terraform-credentials"
 }
 
 resource "aws_instance" "Ansible-Master" {
