@@ -15,6 +15,8 @@ resource "aws_instance" "Ansible-Master" {
       "echo '${var.github_private_key}' >> /home/ec2-user/.ssh/id_rsa",
       "echo '${var.github_public_key}' >> /home/ec2-user/.ssh/id_rsa.pub",
       "chmod 400 /home/ec2-user/.ssh/id_rsa",
+      "sudo yum install git -y",
+      "ssh-keyscan -H github.com >> ~/.ssh/known_hosts",
       "git clone git@github.com:falseroses/future-senior-devops.git",
       "cat <<EOF >> /home/ec2-user/future-senior-devops/ansible/hosts.txt",
       "[prod_servers]",
