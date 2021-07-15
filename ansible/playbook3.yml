@@ -12,11 +12,11 @@
     yum: name=httpd state=latest
 
   - name: Copy MyHomePage to Servers
-    copy src={{ source_file }} dest={{ destin_file }} mode=0555
+    copy: src={{ source_file }} dest={{ destin_file }} mode=0555
     notify: Restart Apache
 
   - name: Start WebServer and make it enable on boot
-    serviceL name=httpd state=started enabled=yes
+    service: name=httpd state=started enabled=yes
 
   handlers:
   - name: Restart Apache
