@@ -18,7 +18,7 @@ resource "aws_instance" "Ansible-Master" {
       "sudo yum install git -y",
       "ssh-keyscan -H github.com >> ~/.ssh/known_hosts",
       "git clone git@github.com:falseroses/future-senior-devops.git",
-      "cat <<EOF >> /home/ec2-user/future-senior-devops/ansible/hosts.txt",
+      "cat <<EOF > /home/ec2-user/future-senior-devops/study/ansible/hosts.txt",
       "[prod_servers]",
       "linux1 ansible_host=${aws_instance.Ansible-Client-1.public_ip}",
       "linux2 ansible_host=${aws_instance.Ansible-Client-2.public_ip}",
