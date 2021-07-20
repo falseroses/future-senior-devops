@@ -1,2 +1,2 @@
 [dev_servers]
-webserv1 ansible_host=3.66.224.59
+webserv1 ansible_host=3.66.224.59 ansible_python_interpreter=/usr/bin/python2
