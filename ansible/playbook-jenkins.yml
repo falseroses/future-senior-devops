@@ -1,0 +1,4 @@
+---
+- name: Install Jenkins
+  hosts: all
+  become: yes
