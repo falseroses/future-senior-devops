@@ -21,7 +21,9 @@
     service: name=nginx state=started enabled=yes
 
   - name: Create Site Folder Structure
-    shell: mkdir -p /var/www/falseroses.xyz
+    file:
+       path: /var/www/falseroses.xyz
+       state: directory
 
   - name: Git Clone Website
     git:
