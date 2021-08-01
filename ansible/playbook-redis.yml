@@ -1,0 +1,24 @@
+---
+- name: Install Redis and Create User
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: Enable Amazon-Linux-Extras Packages
+    shell: |
+      amazon-linux-extras enable redis6
+      yum clean metadata
+
+  - name: Install Redis and Telnet
+    yum: name={{ item }} state=latest
+    loop:
+      - redis
+      - telnet
+
+  - name: Start Redis and Enable Redis Service
+    service: name=redis state=started enabled=yes
+
+  - name: Create Redis User
+    shell: |
+      telnet 127.0.0.1 6379
+      ACL SETUSER sonya on allkeys +@string +@set -SADD >sonyapassword

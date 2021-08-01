@@ -1,2 +1,2 @@
 [dev_servers]
-webserv1 ansible_host=3.67.97.37
+webserv1 ansible_host=3.124.216.102
